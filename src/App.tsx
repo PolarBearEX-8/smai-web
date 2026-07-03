@@ -8,9 +8,8 @@ import { Wind, Anchor, Facebook, Phone, Mail, Instagram, ChevronLeft, ChevronRig
 import { ScrollReveal } from './components/ScrollReveal';
 
 const SLIDES = [
-  "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-  "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+  "/SDC_6302.jpg",
+  "/698888441_1021236063802230_6354780536689167467_n.jpg",
 ];
 
 export default function App() {
@@ -265,29 +264,37 @@ export default function App() {
                 <div className="w-16 h-1 bg-[#DA5F8E]"></div>
               </div>
             </ScrollReveal>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                '/event/721576126_1707011227305024_8277041940511752542_n.jpg',
-                '/event/721323216_27759433520309263_6917513598114110134_n.jpg',
-                '/event/700679212_1022144773711359_6457299316811662779_n.jpg',
-                '/event/698888441_1021236063802230_6354780536689167467_n.jpg'
-              ].map((imgSrc, index) => (
-                <ScrollReveal 
-                  key={index} 
-                  variant="zoom-in" 
-                  delay={index * 100} 
-                  duration={600}
-                >
-                  <a href="#" className="group block relative rounded-xl overflow-hidden shadow-md">
-                    <img src={imgSrc} alt="Activity" className="w-full h-64 object-cover object-top group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="absolute bottom-4 right-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 shadow-sm">
-                      <ExternalLink size={20} />
-                    </div>
-                  </a>
-                </ScrollReveal>
-              ))}
-            </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { img: '/event/721576126_1707011227305024_8277041940511752542_n.jpg', url: 'https://www.facebook.com/share/p/1GzfRdny6o/' },
+                  { img: '/event/721323216_27759433520309263_6917513598114110134_n.jpg', url: 'https://www.facebook.com/share/p/1DiyMWAC8t/' },
+                  { img: '/event/700679212_1022144773711359_6457299316811662779_n.jpg', url: 'https://www.facebook.com/share/p/1DS8ytu6Fv/' },
+                  { img: '/event/698888441_1021236063802230_6354780536689167467_n.jpg', url: 'https://www.facebook.com/share/p/1973Y3sCCC/' }
+                ].map((item, index) => (
+                  <ScrollReveal 
+                    key={index} 
+                    variant="zoom-in" 
+                    delay={index * 100} 
+                    duration={600}
+                  >
+                    {/* เปลี่ยน href มาดึงค่าจาก item.url */}
+                    <a 
+                      href={item.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="group block relative rounded-xl overflow-hidden shadow-md"
+                    >
+                      {/* เปลี่ยน src มาดึงค่าจาก item.img */}
+                      <img src={item.img} alt="Activity" className="w-full h-64 object-cover object-top group-hover:scale-110 transition-transform duration-500" />
+                      
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute bottom-4 right-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 shadow-sm">
+                        <ExternalLink size={20} />
+                      </div>
+                    </a>
+                  </ScrollReveal>
+                ))}
+              </div>
           </div>
         </section>
 
