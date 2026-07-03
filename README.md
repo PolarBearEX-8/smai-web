@@ -49,16 +49,6 @@ Make sure you have Node.js installed.
 - `npm run preview`: Locally previews the production build.
 - `npm run lint`: Performs typechecking with `tsc --noEmit`.
 
-## Environment Variables
-
-A `.env.example` file is provided for configurations regarding Gemini API Studio:
-
-```env
-GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
-APP_URL="YOUR_APP_URL"
-```
-
-*Note: These variables are optional and only needed if you are extending the website with Gemini features.*
 
 ## Customization
 
