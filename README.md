@@ -1,84 +1,68 @@
 # S-MAI Website
 
-เว็บไซต์ประชาสัมพันธ์โครงการห้องเรียนพิเศษ S-MAI ของโรงเรียนเตรียมอุดมศึกษาพัฒนาการ รัชดา สร้างด้วย React, Vite และ Tailwind CSS
+A promotional website for the S-MAI Special Classroom Program at Triam Udom Suksa Pattanakarn Ratchada School. Built with React, Vite, and Tailwind CSS.
 
-## สิ่งที่ใช้ในโปรเจกต์
+## Tech Stack
 
-- React 19
-- Vite 6
-- TypeScript
-- Tailwind CSS 4
-- lucide-react สำหรับไอคอน
-- motion และ @google/genai มีอยู่ใน dependencies สำหรับต่อยอดฟีเจอร์เพิ่มเติม
+- **Framework**: React 19
+- **Build Tool**: Vite 6
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **Icons**: Lucide React
+- **Extra dependencies**: `motion` and `@google/genai` are included for future features.
 
-## โครงสร้างไฟล์หลัก
+## Project Structure
 
-- `src/App.tsx` - หน้าเว็บหลัก รวม header, slideshow, ข่าวสาร, กิจกรรม, ส่วนเกี่ยวกับ และ footer
-- `src/main.tsx` - จุดเริ่มต้นของ React app
-- `src/index.css` - import Tailwind CSS และตั้งค่า font
-- `public/` - รูปภาพและโลโก้ที่เรียกใช้จาก path `/...`
-- `assets/` - พื้นที่เก็บ asset เพิ่มเติม
-- `vite.config.ts` - ตั้งค่า Vite, React plugin, Tailwind plugin และ alias `@`
+- `src/App.tsx` - Main application file containing the header, image slider, news section, activity gallery, about section, and footer.
+- `src/main.tsx` - Entry point for the React application.
+- `src/index.css` - Global CSS file importing Tailwind CSS and setting up default fonts.
+- `public/` - Public assets directory for images and logos (accessible at the root path `/...`).
+- `vite.config.ts` - Vite configuration with React, Tailwind plugins, and path aliases.
 
-## การติดตั้งและรันบนเครื่อง
+## Getting Started
 
-ต้องมี Node.js ติดตั้งไว้ก่อน
+### Prerequisites
 
-```bash
-npm install
-npm run dev
-```
+Make sure you have Node.js installed.
 
-จากนั้นเปิดเว็บที่:
+### Installation
 
-```text
-http://localhost:3000
-```
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## คำสั่งที่ใช้บ่อย
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-```bash
-npm run dev
-```
+3. Open your browser and navigate to:
+   ```text
+   http://localhost:3000
+   ```
 
-รัน development server ที่ port 3000
+## Available Scripts
 
-```bash
-npm run build
-```
+- `npm run dev`: Runs the app in development mode at port 3000.
+- `npm run build`: Builds the app for production.
+- `npm run preview`: Locally previews the production build.
+- `npm run lint`: Performs typechecking with `tsc --noEmit`.
 
-build ไฟล์สำหรับนำไป deploy
+## Environment Variables
 
-```bash
-npm run preview
-```
-
-preview ผลลัพธ์หลัง build
-
-```bash
-npm run lint
-```
-
-ตรวจ TypeScript ด้วย `tsc --noEmit`
-
-## Environment variables
-
-มีตัวอย่างไฟล์ `.env.example` สำหรับค่าที่เกี่ยวกับ Gemini/API Studio:
+A `.env.example` file is provided for configurations regarding Gemini API Studio:
 
 ```env
-GEMINI_API_KEY="MY_GEMINI_API_KEY"
-APP_URL="MY_APP_URL"
+GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
+APP_URL="YOUR_APP_URL"
 ```
 
-ถ้าไม่ได้ใช้ฟีเจอร์ Gemini ในหน้าเว็บปัจจุบัน สามารถรันหน้าเว็บพื้นฐานได้โดยไม่ต้องตั้งค่า key เหล่านี้
+*Note: These variables are optional and only needed if you are extending the website with Gemini features.*
 
-## การแก้ไขเนื้อหาเว็บ
+## Customization
 
-- แก้ข้อความ เมนู ลิงก์ social และ section ต่าง ๆ ได้ใน `src/App.tsx`
-- เปลี่ยนโลโก้หรือรูป local ได้ใน `public/`
-- ปรับ font และ theme ได้ใน `src/index.css`
-- เพิ่มรูป slideshow ได้โดยแก้ array `SLIDES` ใน `src/App.tsx`
-
-## หมายเหตุ
-
-ไฟล์ `src/App.tsx` ปัจจุบันมีข้อความภาษาไทยบางส่วนที่แสดงเป็น mojibake หรืออักขระเพี้ยน ควรตรวจ encoding และแทนที่ข้อความเหล่านั้นด้วยภาษาไทย UTF-8 ก่อนนำขึ้นใช้งานจริง
+- **Texts, Menus, Links**: Update `src/App.tsx`.
+- **Local Assets & Logos**: Replace or add files in `public/`.
+- **Fonts & Themes**: Adjust `src/index.css`.
+- **Slideshow Images**: Edit the `SLIDES` array in `src/App.tsx`.

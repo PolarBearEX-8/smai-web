@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Wind, Anchor, Facebook, Phone, Mail, Instagram, ChevronLeft, ChevronRight, FileText, Download, Users, ChevronDown, BookOpen } from 'lucide-react';
+import { Wind, Anchor, Facebook, Phone, Mail, Instagram, ChevronLeft, ChevronRight, FileText, Download, Users, ChevronDown, BookOpen, ExternalLink } from 'lucide-react';
 import { ScrollReveal } from './components/ScrollReveal';
 
 const SLIDES = [
@@ -16,6 +16,14 @@ const SLIDES = [
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeSection, setActiveSection] = useState('home');
+  const [activeModel, setActiveModel] = useState('SMAI-05');
+  const isNavClickRef = React.useRef(false);
+  const activeSectionRef = React.useRef('home');
+
+  const setActiveSectionSafe = (section: string) => {
+    activeSectionRef.current = section;
+    setActiveSection(section);
+  };
 
   const SECTION_TITLES: { [key: string]: string } = {
     home: 'หน้าแรก | S-MAI',
@@ -30,29 +38,34 @@ export default function App() {
   }, [activeSection]);
 
   useEffect(() => {
-    const sections = ['home-section', 'about-section', 'archive-section', 'yearbook-section', 'contact-section'];
-    const observers = sections.map((id) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
+    window.scrollTo(0, 0);
+    const sections = ['home-section', 'about-section', 'archive-section', 'contact-section'];
+    let observers: ({ observer: IntersectionObserver; el: Element } | null)[] = [];
 
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            if (id === 'home-section') setActiveSection('home');
-            else if (id === 'about-section') setActiveSection('about');
-            else if (id === 'archive-section') setActiveSection('archive');
-            else if (id === 'yearbook-section') setActiveSection('yearbook');
-            else if (id === 'contact-section') setActiveSection('contact');
-          }
-        },
-        { threshold: 0.2 }
-      );
+    const timer = setTimeout(() => {
+      observers = sections.map((id) => {
+        const el = document.getElementById(id);
+        if (!el) return null;
 
-      observer.observe(el);
-      return { observer, el };
-    });
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting && !isNavClickRef.current && activeSectionRef.current !== 'yearbook') {
+              if (id === 'home-section') setActiveSectionSafe('home');
+              else if (id === 'about-section') setActiveSectionSafe('about');
+              else if (id === 'archive-section') setActiveSectionSafe('archive');
+              else if (id === 'contact-section') setActiveSectionSafe('contact');
+            }
+          },
+          { threshold: 0.2 }
+        );
+
+        observer.observe(el);
+        return { observer, el };
+      });
+    }, 500);
 
     return () => {
+      clearTimeout(timer);
       observers.forEach((obs) => {
         if (obs) obs.observer.unobserve(obs.el);
       });
@@ -60,11 +73,23 @@ export default function App() {
   }, []);
 
   const handleNavClick = (sectionId: string, sectionName: string) => {
-    setActiveSection(sectionName);
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    setActiveSectionSafe(sectionName);
+    if (sectionName === 'yearbook') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
     }
+    isNavClickRef.current = true;
+    setTimeout(() => {
+      if (sectionName === 'home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+      setTimeout(() => { isNavClickRef.current = false; }, 1000);
+    }, 50);
   };
 
   const nextSlide = () => {
@@ -118,7 +143,13 @@ export default function App() {
               </button>
               
               {/* Dropdown Content */}
-              <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-44 rounded-xl bg-white shadow-lg border border-gray-100 py-2 opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-300 z-50">
+              <div className="absolute left-1/2 -translate-x-1/2 top-full w-44 rounded-xl bg-white shadow-lg border border-gray-100 py-2 opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-300 z-50">
+                <button 
+                  onClick={() => handleNavClick('about-section', 'about')}
+                  className="w-full text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#05086e] font-prompt transition-colors cursor-pointer"
+                >
+                  เกี่ยวกับโครงการ
+                </button>
                 <button 
                   onClick={() => handleNavClick('archive-section', 'archive')}
                   className="w-full text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#05086e] font-prompt transition-colors cursor-pointer"
@@ -146,6 +177,7 @@ export default function App() {
 
       {/* Hero Content */}
       <main className="flex-grow relative z-10 flex flex-col">
+        <div className={activeSection === 'yearbook' ? 'hidden' : 'block'}>
         {/* Slideshow Container */}
         <div id="home-section" className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] overflow-hidden">
           {/* Images */}
@@ -234,71 +266,34 @@ export default function App() {
               </div>
             </ScrollReveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[1, 2, 3, 4].map((item, index) => (
+              {[
+                '/event/721576126_1707011227305024_8277041940511752542_n.jpg',
+                '/event/721323216_27759433520309263_6917513598114110134_n.jpg',
+                '/event/700679212_1022144773711359_6457299316811662779_n.jpg',
+                '/event/698888441_1021236063802230_6354780536689167467_n.jpg'
+              ].map((imgSrc, index) => (
                 <ScrollReveal 
-                  key={item} 
+                  key={index} 
                   variant="zoom-in" 
                   delay={index * 100} 
                   duration={600}
                 >
-                  <div className="group cursor-pointer relative rounded-xl overflow-hidden shadow-md">
-                    <img src={`https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80&sig=${item}`} alt="Activity" className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4">
-                      <h3 className="text-white font-bold font-prompt">ค่ายวิชาการ 2569</h3>
-                      <p className="text-white/80 text-xs font-prompt">ภาพบรรยากาศกิจกรรมค่ายวิชาการ</p>
+                  <a href="#" className="group block relative rounded-xl overflow-hidden shadow-md">
+                    <img src={imgSrc} alt="Activity" className="w-full h-64 object-cover object-top group-hover:scale-110 transition-transform duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute bottom-4 right-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 shadow-sm">
+                      <ExternalLink size={20} />
                     </div>
-                  </div>
+                  </a>
                 </ScrollReveal>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Archive Section */}
-        <section id="archive-section" className="py-12 px-6 sm:px-12 md:px-24 lg:px-40 bg-white overflow-hidden">
-          <div className="max-w-6xl mx-auto">
-            <ScrollReveal variant="fade-up" duration={700}>
-              <div className="text-center mb-10 space-y-2 flex flex-col items-center">
-                <h2 className="text-3xl font-bold text-[#05086e] font-prompt">คลังเก็บข้อมูล</h2>
-                <div className="w-16 h-1 bg-[#DA5F8E]"></div>
-                <p className="text-gray-500 font-prompt text-sm mt-2">ดาวน์โหลดเอกสารและหลักสูตรต่าง ๆ ของโครงการห้องเรียนพิเศษ</p>
-              </div>
-            </ScrollReveal>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { title: 'ใบสมัครเข้าศึกษาต่อ', desc: 'ดาวน์โหลดใบสมัครประจำปีการศึกษา 2570', size: '2.4 MB', type: 'PDF' },
-                { title: 'หลักสูตรการเรียนการสอน', desc: 'รายละเอียดแผนการเรียนของโครงการ S-MAI', size: '4.8 MB', type: 'PDF' },
-                { title: 'คู่มือนักเรียนและผู้ปกครอง', desc: 'กฎระเบียบและแนวทางการปฏิบัติตน', size: '3.1 MB', type: 'PDF' },
-                { title: 'ประกาศผลการสอบคัดเลือก', desc: 'ประกาศผลคะแนนและรายชื่อผู้มีสิทธิ์รายงานตัว', size: '1.2 MB', type: 'PDF' }
-              ].map((doc, index) => (
-                <ScrollReveal 
-                  key={index} 
-                  variant="fade-up" 
-                  delay={index * 100} 
-                  duration={600}
-                >
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow flex flex-col justify-between h-full group">
-                    <div className="space-y-3">
-                      <div className="w-12 h-12 bg-pink-50 rounded-lg flex items-center justify-center text-[#DA5F8E] group-hover:scale-110 transition-transform duration-300">
-                        <FileText size={24} />
-                      </div>
-                      <h3 className="font-bold text-gray-800 font-prompt text-base">{doc.title}</h3>
-                      <p className="text-xs text-gray-500 font-prompt">{doc.desc}</p>
-                    </div>
-                    <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
-                      <span className="text-[11px] text-gray-400 font-medium font-prompt">{doc.type} • {doc.size}</span>
-                      <a href="#" className="flex items-center gap-1.5 text-xs text-[#05086e] font-semibold font-prompt hover:underline">
-                        <span>ดาวน์โหลด</span>
-                        <Download size={14} />
-                      </a>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
-            </div>
-          </div>
-        </section>
+
+
+
 
         {/* About Section */}
         <section id="about-section" className="py-12 px-6 sm:px-12 md:px-24 lg:px-40 bg-gray-50 overflow-hidden">
@@ -325,67 +320,42 @@ export default function App() {
           </div>
         </section>
 
-        {/* Yearbook Section */}
-        <section id="yearbook-section" className="py-12 px-6 sm:px-12 md:px-24 lg:px-40 bg-white overflow-hidden">
-          <div className="max-w-6xl mx-auto">
-            <ScrollReveal variant="fade-up" duration={700}>
-              <div className="text-center mb-10 space-y-2 flex flex-col items-center">
-                <h2 className="text-3xl font-bold text-[#05086e] font-prompt">ทำเนียบรุ่น</h2>
-                <div className="w-16 h-1 bg-[#DA5F8E]"></div>
-                <p className="text-gray-500 font-prompt text-sm mt-2">รายชื่อและข้อมูลทำเนียบนักเรียนโครงการห้องเรียนพิเศษ S-MAI</p>
-              </div>
-            </ScrollReveal>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                { batch: 'รุ่นที่ 1', year: 'ปีการศึกษา 2567', students: '30 คน', motto: 'มุ่งเน้นความเป็นเลิศทางวิทยาศาสตร์และเทคโนโลยีการแพทย์' },
-                { batch: 'รุ่นที่ 2', year: 'ปีการศึกษา 2568', students: '32 คน', motto: 'สร้างสรรค์เทคโนโลยี AI และปัญญาประดิษฐ์' },
-                { batch: 'รุ่นที่ 3', year: 'ปีการศึกษา 2569', students: '35 คน', motto: 'พัฒนาความเป็นผู้นำทางวิชาการและภาษาต่างประเทศ' }
-              ].map((item, index) => (
-                <ScrollReveal 
-                  key={index} 
-                  variant="zoom-in" 
-                  delay={index * 150} 
-                  duration={600}
+
+        </div>
+        <div className={activeSection === 'yearbook' ? 'block flex-grow flex flex-col' : 'hidden'}>
+          <section id="yearbook-section" className="flex-grow min-h-screen bg-gray-50 relative">
+            {/* Floating Left Menu */}
+            <div className="absolute top-8 left-8 w-64 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/50 p-6 flex flex-col gap-2 z-20">
+              <h3 className="text-[#05086e] font-bold font-prompt text-lg mb-4 border-b border-gray-200/60 pb-2">ทำเนียบรุ่น</h3>
+              {['SMAI-05', 'SMAI-04', 'SMAI-03', 'SMAI-02', 'SMAI-01'].map((model) => (
+                <button
+                  key={model}
+                  onClick={() => setActiveModel(model)}
+                  className={`w-full text-left px-4 py-3 rounded-lg font-prompt font-medium border ${activeModel === model ? 'text-[#DA5F8E] border-pink-200 bg-pink-50 shadow-sm' : 'text-gray-600 border-transparent hover:border-pink-100 hover:bg-pink-50/50 hover:text-[#DA5F8E]'}`}
                 >
-                  <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:border-[#DA5F8E]/30 hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full group">
-                    <div className="space-y-4">
-                      <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center text-[#05086e] group-hover:scale-110 transition-transform duration-300">
-                        <Users size={24} />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-gray-800 font-prompt text-lg">S-MAI {item.batch}</h3>
-                        <p className="text-xs text-gray-400 font-prompt mt-0.5">{item.year}</p>
-                      </div>
-                      <p className="text-sm text-gray-600 font-prompt leading-relaxed">{item.motto}</p>
-                    </div>
-                    <div className="mt-8 pt-4 border-t border-gray-200/50 flex items-center justify-between">
-                      <span className="text-xs text-gray-500 font-prompt">จำนวนนักเรียน: <strong>{item.students}</strong></span>
-                      <button className="text-xs text-[#05086e] hover:text-[#DA5F8E] font-semibold font-prompt flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                        <span>ดูรายชื่อ</span>
-                        <span>&rarr;</span>
-                      </button>
-                    </div>
-                  </div>
-                </ScrollReveal>
+                  {model}
+                </button>
               ))}
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </main>
 
       {/* Banner Section at the Bottom */}
       <footer id="contact-section" className="w-full mt-auto py-6 md:py-8 z-30 bg-[#DA5F8E] px-4 sm:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 w-full">
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 w-full">
           
           {/* Social Logos on the Left */}
-          <div className="flex items-center gap-4 text-white">
-            <a href="https://www.facebook.com/profile.php?id=100077475367296" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors">
-              <Facebook size={32} />
-            </a>
-            <a href="https://www.instagram.com/smai__official/" target="_blank" rel="noopener noreferrer" className="hover:text-white/80 transition-colors">
-              <Instagram size={32} />
-            </a>
+          <div className="flex flex-col items-center md:items-start gap-2 pb-2 md:pb-6">
+            <span className="text-white font-prompt font-medium text-sm">Official Social Media</span>
+            <div className="flex items-center gap-4 text-white">
+              <a href="https://www.facebook.com/profile.php?id=100077475367296" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                <img src="/facebook.svg" alt="Facebook" className="w-12 h-12" />
+              </a>
+              <a href="https://www.instagram.com/smai__official/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                <img src="/instagram.svg" alt="Instagram" className="w-12 h-12" />
+              </a>
+            </div>
           </div>
 
           {/* Logo, Address, & Map on the Right */}
