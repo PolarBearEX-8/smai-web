@@ -385,16 +385,16 @@ export default function App() {
       </footer>
 
       {/* Bottom Blue Bar */}
-      <div className="w-full bg-[#05086e] text-white py-3 px-4 sm:px-8 flex justify-between items-center text-xs sm:text-sm z-30 font-prompt">
-        <p className="text-center font-medium flex-1">
+      <div className="w-full bg-[#05086e] text-white py-3 px-4 sm:px-8 flex items-center text-xs sm:text-sm z-30 font-prompt relative">
+        <p className="absolute left-1/2 -translate-x-1/2 font-medium text-center">
           &copy; Copyright 2026 โรงเรียนเตรียมอุดมศึกษาพัฒนาการ รัชดา
         </p>
-        <p className="text-white/70 text-xs whitespace-nowrap">
+        <p className="font-medium text-xs sm:text-sm whitespace-nowrap ml-auto">
           Created and Designed by{' '}
           <a
             href="#"
             onClick={(e) => { e.preventDefault(); handleNavClick('yearbook-section', 'yearbook'); }}
-            className="text-white font-semibold hover:text-[#DA5F8E] transition-colors"
+            className="text-[#DA5F8E] hover:text-white transition-colors"
           >
             SMAI-04
           </a>
