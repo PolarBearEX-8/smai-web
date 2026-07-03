@@ -48,11 +48,6 @@ Make sure you have Node.js installed.
 - `npm run preview`: Locally previews the production build.
 - `npm run lint`: Performs typechecking with `tsc --noEmit`.
 
-<<<<<<< HEAD
-=======
-*Note: These variables are optional and only needed if you are extending the website with Gemini features.*
->>>>>>> 22e08b5e156b3e8d167490b5c689bdf11cb48058
-
 ## Customization
 
 - **Texts, Menus, Links**: Update `src/App.tsx`.
