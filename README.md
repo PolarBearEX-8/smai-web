@@ -9,7 +9,6 @@ A promotional website for the S-MAI Special Classroom Program at Triam Udom Suks
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS 4
 - **Icons**: Lucide React
-- **Extra dependencies**: `motion` and `@google/genai` are included for future features.
 
 ## Project Structure
 
