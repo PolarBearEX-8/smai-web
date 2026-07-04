@@ -239,20 +239,14 @@ export default function App() {
             </Reveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3].map((item, index) => (
-                <Reveal 
-                  key={item} 
-                  variant="fade-up" 
-                  delay={index * 150} 
+                <Reveal
+                  key={item}
+                  variant="fade-up"
+                  delay={index * 150}
                   duration={800}
                 >
-                  <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-100 h-full">
-                    <img src={`https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80&sig=${item}`} alt="News" className="w-full h-48 object-cover" />
-                    <div className="p-5 space-y-3">
-                      <p className="text-xs text-[#DA5F8E] font-medium font-prompt">2 กรกฎาคม 2026</p>
-                      <h3 className="font-bold text-gray-800 font-prompt line-clamp-2">ประกาศรับสมัครนักเรียนใหม่ ประจำปีการศึกษา 2570</h3>
-                      <p className="text-sm text-gray-500 font-prompt line-clamp-2">รายละเอียดการรับสมัครนักเรียนเข้าศึกษาต่อในระดับชั้นมัธยมศึกษาปีที่ 1 และ 4 โครงการห้องเรียนพิเศษ...</p>
-                      <a href="#" className="inline-block text-[#05086e] text-sm font-semibold font-prompt hover:underline">อ่านต่อ &rarr;</a>
-                    </div>
+                  <div className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-100 h-full flex items-center justify-center min-h-[280px]">
+                    <p className="text-gray-300 font-prompt text-lg">Page Not Found</p>
                   </div>
                 </Reveal>
               ))}
@@ -312,7 +306,7 @@ export default function App() {
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
             <div className="w-full md:w-1/2">
               <ScrollReveal variant="fade-right" duration={800}>
-                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="About" className="rounded-xl shadow-lg object-cover h-[300px] w-full" />
+                <img src={asset('eee.jpg')} alt="About" className="rounded-xl shadow-lg object-cover h-[300px] w-full" />
               </ScrollReveal>
             </div>
             <div className="w-full md:w-1/2">
