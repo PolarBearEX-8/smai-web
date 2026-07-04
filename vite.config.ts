@@ -6,12 +6,12 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export default defineConfig({
-  base: '/smai-web/',
+export default defineConfig(({ command }) => ({
+  base: command === 'serve' ? '/' : '/smai-web/',
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '.'),
     },
   },
-});
+}));

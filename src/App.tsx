@@ -21,6 +21,10 @@ export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeSection, setActiveSection] = useState('home');
   const [activeModel, setActiveModel] = useState('SMAI-05');
+  const [openFolder, setOpenFolder] = useState<string | null>(null);
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+  const [pdfTitle, setPdfTitle] = useState<string>('');
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const isNavClickRef = React.useRef(false);
   const activeSectionRef = React.useRef('home');
 
@@ -34,6 +38,7 @@ export default function App() {
     contact: 'ติดต่อเรา | S-MAI',
     about: 'รายละเอียดการสมัคร | S-MAI',
     archive: 'คลังเก็บข้อมูล | S-MAI',
+    documents: 'คลังเอกสาร | S-MAI',
     yearbook: 'ทำเนียบรุ่น | S-MAI',
   };
 
@@ -53,7 +58,7 @@ export default function App() {
 
         const observer = new IntersectionObserver(
           ([entry]) => {
-            if (entry.isIntersecting && !isNavClickRef.current && activeSectionRef.current !== 'yearbook') {
+            if (entry.isIntersecting && !isNavClickRef.current && activeSectionRef.current !== 'yearbook' && activeSectionRef.current !== 'documents') {
               if (id === 'home-section') setActiveSectionSafe('home');
               else if (id === 'about-section') setActiveSectionSafe('about');
               else if (id === 'archive-section') setActiveSectionSafe('archive');
@@ -77,20 +82,31 @@ export default function App() {
   }, []);
 
   const handleNavClick = (sectionId: string, sectionName: string) => {
-    setActiveSectionSafe(sectionName);
-    if (sectionName === 'yearbook') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    const currentIsPage = activeSectionRef.current === 'yearbook' || activeSectionRef.current === 'documents';
+    const targetIsPage = sectionName === 'yearbook' || sectionName === 'documents';
+    const needsPageTransition = currentIsPage || targetIsPage;
+
+    if (needsPageTransition) {
+      // Phase 1: fade out main
+      setIsTransitioning(true);
+      setTimeout(() => {
+        // Phase 2: switch page content
+        setActiveSectionSafe(sectionName);
+        window.scrollTo({ top: 0 });
+        setIsTransitioning(false);
+      }, 180);
       return;
     }
+
+    // In-page scroll navigation
+    setActiveSectionSafe(sectionName);
     isNavClickRef.current = true;
     setTimeout(() => {
       if (sectionName === 'home') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
+        if (element) element.scrollIntoView({ behavior: 'smooth' });
       }
       setTimeout(() => { isNavClickRef.current = false; }, 1000);
     }, 50);
@@ -105,6 +121,7 @@ export default function App() {
   };
 
   return (
+    <>
     <div className="min-h-screen bg-white text-gray-900 flex flex-col font-sans selection:bg-teal-100 selection:text-teal-900">
       {/* Sticky Header Group */}
       <div className="sticky top-0 z-50 w-full flex flex-col shadow-sm">
@@ -140,30 +157,40 @@ export default function App() {
             {/* Dropdown Menu for คลังข้อมูล */}
             <div className="relative group/dropdown py-2">
               <button 
-                className={`hover:text-gray-900 transition-colors duration-300 cursor-pointer flex items-center gap-1 ${activeSection === 'archive' || activeSection === 'yearbook' ? 'text-gray-900 font-semibold' : ''}`}
+                className={`hover:text-gray-900 transition-colors duration-300 cursor-pointer flex items-center gap-1 ${activeSection === 'archive' || activeSection === 'documents' || activeSection === 'yearbook' ? 'text-gray-900 font-semibold' : ''}`}
               >
                 <span>คลังข้อมูล</span>
                 <ChevronDown size={14} className="group-hover/dropdown:rotate-180 transition-transform duration-300" />
               </button>
               
               {/* Dropdown Content */}
-              <div className="absolute left-1/2 -translate-x-1/2 top-full w-44 rounded-xl bg-white shadow-lg border border-gray-100 py-2 opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-300 z-50">
+              <div className="absolute left-1/2 -translate-x-1/2 top-full w-48 rounded-xl bg-white shadow-lg border border-gray-100 py-2 opacity-0 invisible group-hover/dropdown:opacity-100 group-hover/dropdown:visible transition-all duration-300 z-50">
                 <button 
                   onClick={() => handleNavClick('about-section', 'about')}
-                  className="w-full text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#05086e] font-prompt transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#05086e] font-prompt transition-colors cursor-pointer flex items-center gap-2"
                 >
+                  <BookOpen size={14} />
                   เกี่ยวกับโครงการ
                 </button>
                 <button 
-                  onClick={() => handleNavClick('archive-section', 'archive')}
-                  className="w-full text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#05086e] font-prompt transition-colors cursor-pointer"
+                  onClick={() => handleNavClick('documents-section', 'documents')}
+                  className={`w-full text-left px-4 py-2 text-sm font-prompt transition-colors cursor-pointer flex items-center gap-2 ${ activeSection === 'documents' ? 'text-[#05086e] bg-blue-50 font-semibold' : 'text-gray-700 hover:bg-gray-50 hover:text-[#05086e]'}`}
                 >
+                  <FileText size={14} />
+                  คลังเอกสาร
+                </button>
+                <button 
+                  onClick={() => handleNavClick('archive-section', 'archive')}
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#05086e] font-prompt transition-colors cursor-pointer flex items-center gap-2"
+                >
+                  <Download size={14} />
                   ดาวน์โหลดเอกสาร
                 </button>
                 <button 
                   onClick={() => handleNavClick('yearbook-section', 'yearbook')}
-                  className="w-full text-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#05086e] font-prompt transition-colors cursor-pointer"
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#05086e] font-prompt transition-colors cursor-pointer flex items-center gap-2"
                 >
+                  <Users size={14} />
                   ทำเนียบรุ่น
                 </button>
               </div>
@@ -180,8 +207,15 @@ export default function App() {
       </div>
 
       {/* Hero Content */}
-      <main className="flex-grow relative z-10 flex flex-col">
-        <div className={activeSection === 'yearbook' ? 'hidden' : 'block'}>
+      <main
+        className="flex-grow relative z-10 flex flex-col"
+        style={{
+          opacity: isTransitioning ? 0 : 1,
+          transform: isTransitioning ? 'translateY(10px)' : 'translateY(0px)',
+          transition: 'opacity 0.22s ease, transform 0.22s ease',
+        }}
+      >
+        <div className={activeSection === 'yearbook' || activeSection === 'documents' ? 'hidden' : 'block'}>
         {/* Slideshow Container */}
         <div id="home-section" className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] overflow-hidden">
           {/* Images */}
@@ -334,6 +368,7 @@ export default function App() {
 
 
         </div>
+        {/* Yearbook Page */}
         <div className={activeSection === 'yearbook' ? 'block flex-grow flex flex-col' : 'hidden'}>
           <section id="yearbook-section" className="flex-grow min-h-screen bg-gray-50 relative">
             {/* Floating Left Menu */}
@@ -351,6 +386,178 @@ export default function App() {
             </div>
           </section>
         </div>
+
+        {/* Documents Page - คลังเอกสาร */}
+        <div className={activeSection === 'documents' ? 'block flex-grow flex flex-col' : 'hidden'}>
+          <section id="documents-section" className="flex-grow min-h-screen bg-gray-50">
+            <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 py-12">
+
+              {/* Header + Breadcrumb */}
+              <div className="mb-8">
+                <div className="inline-flex items-center gap-2 rounded-2xl border border-gray-200 bg-white/90 px-4 py-2 shadow-sm text-sm font-prompt mb-3">
+                  <button
+                    type="button"
+                    onClick={() => setOpenFolder(null)}
+                    className={`rounded-lg border border-transparent px-3 py-1.5 transition-all duration-200 ${
+                      openFolder
+                        ? 'text-[#05086e] hover:border-gray-300 hover:bg-gray-100/60 hover:text-gray-900 cursor-pointer'
+                        : 'text-gray-700 cursor-default'
+                    }`}
+                  >
+                    คลังเอกสาร
+                  </button>
+                  {openFolder && (
+                    <>
+                      <span className="text-gray-300">/</span>
+                      <button
+                        type="button"
+                        onClick={() => setOpenFolder(openFolder)}
+                        className="rounded-lg border border-transparent px-3 py-1.5 text-gray-700 font-medium transition-all duration-200 hover:border-gray-300 hover:bg-gray-100/60 hover:text-gray-900 cursor-pointer"
+                      >
+                        {openFolder}
+                      </button>
+                    </>
+                  )}
+                </div>
+                <h1 className="text-3xl font-bold text-[#05086e] font-prompt">
+                  {openFolder ?? 'คลังเอกสาร'}
+                </h1>
+                <div className="w-16 h-1 bg-[#DA5F8E] mt-2 mb-3"></div>
+                <p className="text-gray-500 font-prompt text-sm">
+                  {openFolder ? `เอกสารในโฟลเดอร์ ${openFolder}` : 'เลือกโฟลเดอร์เพื่อดูเอกสารภายใน'}
+                </p>
+              </div>
+
+              {/* Folder View */}
+              {!openFolder && (() => {
+                const FOLDERS = [
+                  {
+                    id: 'รับสมัครนักเรียน 2569',
+                    label: 'รับสมัครนักเรียน 2569',
+                    count: 1,
+                    color: 'from-amber-50 to-yellow-50',
+                    border: 'border-amber-200',
+                    iconColor: 'text-amber-400',
+                  },
+                ];
+                return (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+                    {FOLDERS.map((folder) => (
+                      <button
+                        key={folder.id}
+                        type="button"
+                        onClick={() => setOpenFolder(folder.id)}
+                        className="group inline-flex flex-col items-center justify-center gap-2 rounded-3xl border border-transparent px-8 py-6 bg-transparent cursor-pointer text-center transition-all duration-200 hover:scale-[1.03] hover:border-gray-300 hover:bg-gray-100/60 hover:shadow-sm"
+                        aria-label={folder.label}
+                        title={folder.label}
+                      >
+                        <svg className={`w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 ${folder.iconColor} transition-transform duration-200 drop-shadow-sm group-hover:translate-y-[-2px]`} viewBox="0 0 64 64" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M4 14a4 4 0 0 1 4-4h16l4 6h28a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V14z" opacity="0.35"/>
+                          <path d="M4 20h56v26a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V20z"/>
+                        </svg>
+                        <span className="font-prompt font-semibold text-gray-700 text-sm sm:text-base leading-snug text-center">
+                          {folder.label}
+                        </span>
+                        <span className="text-xs sm:text-sm text-gray-400 font-prompt">
+                          {folder.count} ไฟล์
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                );
+              })()}
+
+              {/* File List View (inside folder) */}
+              {openFolder === 'รับสมัครนักเรียน 2569' && (() => {
+                const FILES = [
+                  {
+                    name: 'ประกาศรับสมัครนักเรียนห้องเรียนพิเศษ ม.4 SMAI ปีการศึกษา 2569 ตอพร.pdf',
+                    url: asset('file/ประกาศรับสมัครนักเรียนห้องเรียนพิเศษ  ม.4 SMAI ปีการศึกษา 2569 ตอพร.pdf'),
+                    size: '207 KB',
+                    date: '2569',
+                  },
+                ];
+                return (
+                  <div className="flex flex-col gap-3">
+                    {FILES.map((file, i) => (
+                      <div
+                        key={i}
+                        className="group bg-white border border-gray-100 rounded-2xl px-6 py-4 flex items-center gap-5 hover:shadow-md hover:border-[#05086e]/20 transition-all duration-200 cursor-pointer"
+                        onClick={() => { setPdfUrl(file.url); setPdfTitle(file.name); }}
+                      >
+                        {/* PDF Icon */}
+                        <div className="flex-shrink-0 w-12 h-12 bg-red-50 border border-red-100 rounded-xl flex items-center justify-center">
+                          <svg className="w-7 h-7 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+                            <path fill="white" d="M14 2v6h6"/>
+                            <text x="5" y="19" fontSize="5" fontFamily="Arial" fontWeight="bold" fill="white">PDF</text>
+                          </svg>
+                        </div>
+                        {/* Name & meta */}
+                        <div className="flex-1 min-w-0">
+                          <p className="font-prompt font-semibold text-gray-800 text-sm truncate group-hover:text-[#05086e] transition-colors">{file.name}</p>
+                          <p className="text-xs text-gray-400 font-prompt mt-0.5">{file.size} &bull; ปี {file.date}</p>
+                        </div>
+                        {/* Open button */}
+                        <div className="flex-shrink-0 flex items-center gap-2">
+                          <span className="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#05086e] text-white text-xs font-prompt font-medium group-hover:bg-[#05086e]/90 transition-colors">
+                            <FileText size={12} />
+                            ดูเอกสาร
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
+
+            </div>
+          </section>
+        </div>
+
+        {/* PDF Viewer Modal */}
+        {pdfUrl && (
+          <div
+            className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={(e) => { if (e.target === e.currentTarget) { setPdfUrl(null); setPdfTitle(''); } }}
+          >
+            <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[90vh] flex flex-col overflow-hidden">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 flex-shrink-0">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 bg-red-50 border border-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <FileText size={16} className="text-red-500" />
+                  </div>
+                  <p className="font-prompt font-semibold text-gray-800 text-sm truncate">{pdfTitle}</p>
+                </div>
+                <div className="flex items-center gap-2 flex-shrink-0 ml-4">
+                  <a
+                    href={pdfUrl}
+                    download
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#05086e] text-white text-xs font-prompt font-medium hover:bg-[#05086e]/90 transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Download size={12} />
+                    ดาวน์โหลด
+                  </a>
+                  <button
+                    onClick={() => { setPdfUrl(null); setPdfTitle(''); }}
+                    className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors text-lg font-bold"
+                    aria-label="Close"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+              {/* PDF iframe */}
+              <iframe
+                src={`${pdfUrl}#toolbar=1&navpanes=0`}
+                className="flex-1 w-full"
+                title={pdfTitle}
+              />
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Banner Section at the Bottom */}
@@ -412,6 +619,8 @@ export default function App() {
           </a>
         </p>
       </div>
-    </div>
+      </div>
+
+    </>
   );
 }
