@@ -7,9 +7,14 @@ import React, { useState, useEffect } from 'react';
 import { Wind, Anchor, Facebook, Phone, Mail, Instagram, ChevronLeft, ChevronRight, FileText, Download, Users, ChevronDown, BookOpen, ExternalLink } from 'lucide-react';
 import { ScrollReveal } from './components/ScrollReveal';
 
+const asset = (path: string) =>
+  `${import.meta.env.BASE_URL}${path.split('/').map(encodeURIComponent).join('/')}`;
+
+const Reveal = ScrollReveal as any;
+
 const SLIDES = [
-  "/SDC_6302.jpg",
-  "/698888441_1021236063802230_6354780536689167467_n.jpg",
+  asset('SDC_6302.jpg'),
+  asset('698888441_1021236063802230_6354780536689167467_n.jpg'),
 ];
 
 export default function App() {
@@ -115,7 +120,7 @@ export default function App() {
         <header className="px-40 py-3 flex justify-between items-center bg-white z-20 border-b border-gray-100">
           <div className="flex items-center">
             <a href="#" onClick={(e) => { e.preventDefault(); handleNavClick('home-section', 'home'); }} className="flex items-center cursor-pointer">
-              <img src="/S-MAI2.png" alt="S-MAI Logo" className="h-[35px] sm:h-[45px] md:h-[65px] w-auto" />
+              <img src={asset('S-MAI2.png')} alt="S-MAI Logo" className="h-[35px] sm:h-[45px] md:h-[65px] w-auto" />
             </a>
           </div>
           <nav className="hidden md:flex items-center space-x-8 text-base font-prompt text-gray-600">
@@ -226,15 +231,15 @@ export default function App() {
         {/* News Section */}
         <section className="py-12 px-6 sm:px-12 md:px-24 lg:px-40 bg-white">
           <div className="max-w-6xl mx-auto">
-            <ScrollReveal variant="fade-up" duration={700}>
+            <Reveal variant="fade-up" duration={700}>
               <div className="text-center mb-10 space-y-2 flex flex-col items-center">
                 <h2 className="text-3xl font-bold text-[#05086e] font-prompt">ข่าวสารล่าสุด</h2>
                 <div className="w-16 h-1 bg-[#DA5F8E]"></div>
               </div>
-            </ScrollReveal>
+            </Reveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3].map((item, index) => (
-                <ScrollReveal 
+                <Reveal 
                   key={item} 
                   variant="fade-up" 
                   delay={index * 150} 
@@ -249,7 +254,7 @@ export default function App() {
                       <a href="#" className="inline-block text-[#05086e] text-sm font-semibold font-prompt hover:underline">อ่านต่อ &rarr;</a>
                     </div>
                   </div>
-                </ScrollReveal>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -266,12 +271,12 @@ export default function App() {
             </ScrollReveal>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { img: '/event/721576126_1707011227305024_8277041940511752542_n.jpg', url: 'https://www.facebook.com/share/p/1GzfRdny6o/' },
-                  { img: '/event/721323216_27759433520309263_6917513598114110134_n.jpg', url: 'https://www.facebook.com/share/p/1DiyMWAC8t/' },
-                  { img: '/event/700679212_1022144773711359_6457299316811662779_n.jpg', url: 'https://www.facebook.com/share/p/1DS8ytu6Fv/' },
-                  { img: '/event/698888441_1021236063802230_6354780536689167467_n.jpg', url: 'https://www.facebook.com/share/p/1973Y3sCCC/' }
+                  { img: asset('event/721576126_1707011227305024_8277041940511752542_n.jpg'), url: 'https://www.facebook.com/share/p/1GzfRdny6o/' },
+                  { img: asset('event/721323216_27759433520309263_6917513598114110134_n.jpg'), url: 'https://www.facebook.com/share/p/1DiyMWAC8t/' },
+                  { img: asset('event/700679212_1022144773711359_6457299316811662779_n.jpg'), url: 'https://www.facebook.com/share/p/1DS8ytu6Fv/' },
+                  { img: asset('event/698888441_1021236063802230_6354780536689167467_n.jpg'), url: 'https://www.facebook.com/share/p/1973Y3sCCC/' }
                 ].map((item, index) => (
-                  <ScrollReveal 
+                  <Reveal 
                     key={index} 
                     variant="zoom-in" 
                     delay={index * 100} 
@@ -292,7 +297,7 @@ export default function App() {
                         <ExternalLink size={20} />
                       </div>
                     </a>
-                  </ScrollReveal>
+                  </Reveal>
                 ))}
               </div>
           </div>
@@ -357,10 +362,10 @@ export default function App() {
             <span className="text-white font-prompt font-medium text-sm">Official Social Media</span>
             <div className="flex items-center gap-4 text-white">
               <a href="https://www.facebook.com/profile.php?id=100077475367296" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
-                <img src="/facebook.svg" alt="Facebook" className="w-12 h-12" />
+                <img src={asset('facebook.svg')} alt="Facebook" className="w-12 h-12" />
               </a>
               <a href="https://www.instagram.com/smai__official/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
-                <img src="/instagram.svg" alt="Instagram" className="w-12 h-12" />
+                <img src={asset('instagram.svg')} alt="Instagram" className="w-12 h-12" />
               </a>
             </div>
           </div>
@@ -369,7 +374,7 @@ export default function App() {
           <div className="flex flex-col sm:flex-row justify-end items-center sm:items-stretch gap-4 sm:gap-6 w-full md:w-auto">
             {/* Logo & Address Group */}
             <div className="flex flex-col items-center sm:items-end justify-center gap-2">
-              <img src="/Logo%20only.png" alt="TUPR Logo" className="h-[60px] sm:h-[80px] md:h-[100px] w-auto" />
+              <img src={asset('Logo only.png')} alt="TUPR Logo" className="h-[60px] sm:h-[80px] md:h-[100px] w-auto" />
               <p className="text-white text-[9px] sm:text-xs md:text-sm font-prompt text-center sm:text-right max-w-[200px] md:max-w-[260px]">
                 170 ถ. รัชดาภิเษก แขวงห้วยขวาง เขตห้วยขวาง กรุงเทพมหานคร 10310
               </p>
