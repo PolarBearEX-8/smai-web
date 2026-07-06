@@ -134,7 +134,7 @@ export default function App() {
         </div>
         
         {/* Navigation */}
-        <header className="px-40 py-3 flex justify-between items-center bg-white z-20 border-b border-gray-100">
+        <header className="px-4 sm:px-8 lg:px-40 py-3 flex justify-between items-center bg-white z-20 border-b border-gray-100">
           <div className="flex items-center">
             <a href="#" onClick={(e) => { e.preventDefault(); handleNavClick('home-section', 'home'); }} className="flex items-center cursor-pointer">
               <img src={asset('S-MAI2.png')} alt="S-MAI Logo" className="h-[35px] sm:h-[45px] md:h-[65px] w-auto" />
