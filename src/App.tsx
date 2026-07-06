@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { Wind, Anchor, Facebook, Phone, Mail, Instagram, ChevronLeft, ChevronRight, FileText, Download, Users, ChevronDown, BookOpen, ExternalLink } from 'lucide-react';
 import { ScrollReveal } from './components/ScrollReveal';
+import { Yearbook } from './components/Yearbook';
 
 const asset = (path: string) =>
   `${import.meta.env.BASE_URL}${path.split('/').map(encodeURIComponent).join('/')}`;
@@ -329,21 +330,7 @@ export default function App() {
 
         </div>
         <div className={activeSection === 'yearbook' ? 'block flex-grow flex flex-col' : 'hidden'}>
-          <section id="yearbook-section" className="flex-grow min-h-screen bg-gray-50 relative">
-            {/* Floating Left Menu */}
-            <div className="absolute top-8 left-8 w-64 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/50 p-6 flex flex-col gap-2 z-20">
-              <h3 className="text-[#05086e] font-bold font-prompt text-lg mb-4 border-b border-gray-200/60 pb-2">ทำเนียบรุ่น</h3>
-              {['SMAI-05', 'SMAI-04', 'SMAI-03', 'SMAI-02', 'SMAI-01'].map((model) => (
-                <button
-                  key={model}
-                  onClick={() => setActiveModel(model)}
-                  className={`w-full text-left px-4 py-3 rounded-lg font-prompt font-medium border ${activeModel === model ? 'text-[#DA5F8E] border-pink-200 bg-pink-50 shadow-sm' : 'text-gray-600 border-transparent hover:border-pink-100 hover:bg-pink-50/50 hover:text-[#DA5F8E]'}`}
-                >
-                  {model}
-                </button>
-              ))}
-            </div>
-          </section>
+          <Yearbook activeModel={activeModel} setActiveModel={setActiveModel} />
         </div>
       </main>
 
