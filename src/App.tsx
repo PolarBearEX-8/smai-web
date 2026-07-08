@@ -341,7 +341,7 @@ export default function App() {
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
             <div className="w-full md:w-1/2">
               <ScrollReveal variant="fade-right" duration={800}>
-                <img src={asset('eee.jpg')} alt="About" className="rounded-xl shadow-lg object-cover h-[300px] w-full" />
+                <img src={asset('smaisdad.png')} alt="กิจกรรมโครงการ S-MAI" className="rounded-xl shadow-lg object-cover h-[300px] w-full" />
               </ScrollReveal>
             </div>
             <div className="w-full md:w-1/2">
@@ -561,9 +561,19 @@ export default function App() {
           {/* Logo, Address, & Map on the Right */}
           <div className="flex flex-col sm:flex-row justify-end items-center sm:items-stretch gap-4 sm:gap-6 w-full md:w-auto">
             {/* Logo & Address Group */}
-            <div className="flex flex-col items-center sm:items-end justify-center gap-2">
-              <img src={asset('Logo only.png')} alt="TUPR Logo" className="h-[60px] sm:h-[80px] md:h-[100px] w-auto" />
-              <p className="text-white text-[9px] sm:text-xs md:text-sm font-prompt text-center sm:text-right max-w-[200px] md:max-w-[260px]">
+            <div className="flex flex-col items-center sm:items-end justify-center gap-0.5">
+              <img src={asset('Logo only.png')} alt="TUPR Logo" className="h-[60px] sm:h-[80px] md:h-[100px] w-auto mb-1.5" />
+              <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-4 gap-y-1 text-white text-[9px] sm:text-xs md:text-sm font-prompt leading-tight">
+                <span className="inline-flex items-center gap-1.5">
+                  <Phone className="h-3.5 w-3.5 text-yellow-300" aria-hidden="true" />
+                  02 645 2702
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Mail className="h-3.5 w-3.5 text-yellow-300" aria-hidden="true" />
+                  contact@tupr.ac.th
+                </span>
+              </div>
+              <p className="text-white text-[9px] sm:text-xs md:text-sm font-prompt text-center sm:text-right max-w-[200px] md:max-w-[260px] leading-tight">
                 170 ถ. รัชดาภิเษก แขวงห้วยขวาง เขตห้วยขวาง กรุงเทพมหานคร 10310
               </p>
             </div>
