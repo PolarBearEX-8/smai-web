@@ -34,6 +34,11 @@ export default function App() {
     setActiveSection(section);
   };
 
+  const closePdfViewer = () => {
+    setPdfUrl(null);
+    setPdfTitle('');
+  };
+
   const SECTION_TITLES: { [key: string]: string } = {
     home: 'หน้าแรก | S-MAI',
     contact: 'ติดต่อเรา | S-MAI',
@@ -46,6 +51,17 @@ export default function App() {
   useEffect(() => {
     document.title = SECTION_TITLES[activeSection] || 'S-MAI';
   }, [activeSection]);
+
+  useEffect(() => {
+    if (!pdfUrl) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closePdfViewer();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [pdfUrl]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -83,6 +99,8 @@ export default function App() {
   }, []);
 
   const handleNavClick = (sectionId: string, sectionName: string) => {
+    closePdfViewer();
+
     const currentIsPage = activeSectionRef.current === 'yearbook' || activeSectionRef.current === 'documents';
     const targetIsPage = sectionName === 'yearbook' || sectionName === 'documents';
     const needsPageTransition = currentIsPage || targetIsPage;
@@ -500,7 +518,7 @@ export default function App() {
         {pdfUrl && (
           <div
             className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
-            onClick={(e) => { if (e.target === e.currentTarget) { setPdfUrl(null); setPdfTitle(''); } }}
+            onClick={(e) => { if (e.target === e.currentTarget) closePdfViewer(); }}
           >
             <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[90vh] flex flex-col overflow-hidden">
               {/* Modal Header */}
@@ -522,7 +540,7 @@ export default function App() {
                     ดาวน์โหลด
                   </a>
                   <button
-                    onClick={() => { setPdfUrl(null); setPdfTitle(''); }}
+                    onClick={closePdfViewer}
                     className="w-9 h-9 flex items-center justify-center rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors text-lg font-bold"
                     aria-label="Close"
                   >
