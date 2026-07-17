@@ -96,7 +96,7 @@ function AvatarPlaceholder({ nickname }: { nickname: string }) {
 // ─────────────────────────────────────────────
 //  Student Card
 // ─────────────────────────────────────────────
-function StudentCard({ student }: { student: Student }) {
+function StudentCard({ student }: { student: Student; key?: string | number }) {
   const [imgError, setImgError] = useState(false);
 
   return (
