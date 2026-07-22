@@ -27,56 +27,77 @@ interface YearbookData {
 }
 
 // ─────────────────────────────────────────────
-//  Data  ← แก้ไขข้อมูลนักเรียนตรงนี้
+//  Raw student data  ← แก้ข้อมูลตรงนี้เลย!
+//  ใส่ชื่อในแต่ละ array ให้ตรงกันตามลำดับ
+//  เช่น fullname[0] + nickname[0] + instagram[0] = นักเรียนคนที่ 1
+// ─────────────────────────────────────────────
+
+// helper: รับ parallel arrays แล้ววน loop รวมเป็น Student[]
+function makeStudents(data: {
+  fullname:  string[];
+  nickname:  string[];
+  instagram?: string[];
+  photo?:    string[];
+}): Student[] {
+  return data.fullname.map((fullName, i) => ({
+    id:        i + 1,
+    fullName,
+    nickname:  data.nickname[i]  ?? '',
+    instagram: data.instagram?.[i],
+    photo:     data.photo?.[i],
+  }));
+}
+const TEACHER = makeStudents({
+  fullname:  ['ณัฐสิทธิ์ ประจิม', 'จินตนา คงอ่ำ', 'ศิริรัฐพล ไตรสังข์','สัญชัย วัชรพรรณ','นพวิชญ์ วงค์สม','ภูมิ สารักษ์'],
+  nickname:  ['พี่ก๊อปปี้','พี่อ้อม','พี่แซ็ค','พี่เอ็กซ์','พี่บรอนซ์','พี่ภูมิ'],
+  instagram: ['jarnjim.is.khuncool','-','zacksophone_kme','-','bronopphawich','-'],
+})
+// ── SMAI-05 (2569) ──────────────────────────
+const SMAI05 = makeStudents({
+  fullname:  ['ชื่อ นามสกุล', 'ชื่อ นามสกุล', 'ชื่อ นามสกุล'],
+  nickname:  ['ชื่อเล่น',     'ชื่อเล่น',     'ชื่อเล่น'    ],
+  instagram: ['username',     'username',     'username'    ],
+});
+
+// ── SMAI-04 (2568) ──────────────────────────
+const SMAI04 = makeStudents({
+  fullname:  ['ปภังกร ศักดิ์แสน', 'ยศตระกูล ส่งตระกูล', 'ชรัณ พงศ์ธนากุล', 'ณัทรา วสุธนานนท์', 'สิวราพร รอดภัย', 'ชยุต อินทร์รุ่ง', 'เดชพันธุ์ ยอดสีหรัตน์', 'ทัศภูมิ จรัสตระกูล', 'แทนชนก เรืองโชติช่วง', 'ธนภูมิ อ้อยสิน', 'นันทพัทธ์ แย้มพราหมณ์', 'พรพิพัฒน์ เชื้อตาลี', 'พีรวัส เพ็ชรอำไพ', 'ภัทรภีร์ ธรรมพุทธพงศ์', 'ภีมรภีร์ ธรรมพุทธพงศ์', 'วิชยุตม์ แสงจันทร์ศิริ', 'เรืองยศ ทองงาม', 'อนิวัตติ์ เมฆวิมานรัตน์', 'อำนาจ พรมดี', 'ณิชกานต์ สุวัจนธาดาพงศ์', 'มีนา เจริญมาตย์', 'สุภัททรีญา พิมศรี', 'วรกนก ทองถึง', 'จิรเมธ พุ่มหอม', 'ธนัชชัย บุญธนะ', 'ยศวริศ ชัยธวัลภัสร์', 'อัฑฒกร มงคลคี', 'กัญญาวรัตน์ นนท์ธนสรณ์', 'ชนันธร จักรกฤษณ์'],
+  nickname:  ['ยู', 'ออโต้', 'วิน', 'ณิลิน', 'คาราเมล', 'ตะวัน', 'พี', 'ภูมิ', 'ติ๊กเกอร์', 'คุน', 'มาร์ค', 'น้ำมนต์', 'แบงก์', 'ภัทร', 'ภีม', 'บลู', 'เจ้าคุณ', 'เพชร', 'โอวัลติน', 'ณิชา', 'มีนา', 'อุ๋งอิ๋ง', 'นิด้า', 'ต้นน้ำ', 'มิก', 'เอลฟ์', 'พอตเตอร์', 'มิ้นท์', 'ปาร์ตี้'],
+  instagram: ['zyx_._uy','hello_simp555','win_aviation','tue4agust','s.oracrmel','-','pee_dekaer','sue._ak','a.b.e.l.1565','txnap_om','pakahoe_m','mailuqwe','peerawatzeros','ph4t_t','stellaron_raccoon','skidder24','jaowyahh','aniwat2553','ov4ltinnn','shestheonenichy','mtyuid_o.o','babeshawtyae','bbyflowerlunchy','tnmjrm','v4ri4ble_','yr_chp','pott.o4r.june','tyq4wr','__18.35__'],
+  // เพิ่มชื่อในแต่ละ array ให้ตรงกันตามลำดับ ↓
+});
+
+// ── SMAI-03 (2567) ──────────────────────────
+const SMAI03 = makeStudents({
+  fullname:  ['ชื่อ นามสกุล', 'ชื่อ นามสกุล', 'ชื่อ นามสกุล'],
+  nickname:  ['ชื่อเล่น',     'ชื่อเล่น',     'ชื่อเล่น'    ],
+  instagram: ['username',     'username',     'username'    ],
+});
+
+// ── SMAI-02 (2566) ──────────────────────────
+const SMAI02 = makeStudents({
+  fullname:  ['ชื่อ นามสกุล', 'ชื่อ นามสกุล'],
+  nickname:  ['ชื่อเล่น',     'ชื่อเล่น'    ],
+  instagram: ['username',     'username'    ],
+});
+
+// ── SMAI-01 (2565) ──────────────────────────
+const SMAI01 = makeStudents({
+  fullname:  ['ชื่อ นามสกุล', 'ชื่อ นามสกุล'],
+  nickname:  ['ชื่อเล่น',     'ชื่อเล่น'    ],
+  instagram: ['username',     'username'    ],
+});
+
+// ─────────────────────────────────────────────
+//  Yearbook Data  ← ห้ามแก้ส่วนนี้ แก้ที่ด้านบนแทน
 // ─────────────────────────────────────────────
 const YEARBOOK_DATA: YearbookData[] = [
-  {
-    model: 'SMAI-05',
-    year: '2569',
-    students: [
-      { id: 1, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-      { id: 2, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-      { id: 3, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-      { id: 4, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-      { id: 5, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-      { id: 6, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-    ],
-  },
-  {
-    model: 'SMAI-04',
-    year: '2568',
-    students: [
-      { id: 1, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-      { id: 2, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-      { id: 3, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-      { id: 4, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-    ],
-  },
-  {
-    model: 'SMAI-03',
-    year: '2567',
-    students: [
-      { id: 1, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-      { id: 2, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-      { id: 3, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-    ],
-  },
-  {
-    model: 'SMAI-02',
-    year: '2566',
-    students: [
-      { id: 1, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-      { id: 2, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-    ],
-  },
-  {
-    model: 'SMAI-01',
-    year: '2565',
-    students: [
-      { id: 1, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-      { id: 2, fullName: 'ชื่อ นามสกุล', nickname: 'ชื่อเล่น', instagram: 'username' },
-    ],
-  },
+  { model: 'Teacher', year: 'all the time', students: TEACHER },
+  { model: 'SMAI-05', year: '2569', students: SMAI05 },
+  { model: 'SMAI-04', year: '2568', students: SMAI04 },
+  { model: 'SMAI-03', year: '2567', students: SMAI03 },
+  { model: 'SMAI-02', year: '2566', students: SMAI02 },
+  { model: 'SMAI-01', year: '2565', students: SMAI01 },
 ];
 
 // ─────────────────────────────────────────────
