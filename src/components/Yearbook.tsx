@@ -121,7 +121,7 @@ function StudentCard({ student }: { student: Student; key?: string | number }) {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div className="group relative bg-white dark:bg-[#151c3a] rounded-2xl shadow-sm border border-gray-100 dark:border-white/10 overflow-hidden hover:shadow-xl dark:hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300">
+    <div className="group relative bg-white dark:bg-[#18181b] rounded-2xl shadow-sm border border-gray-100 dark:border-white/10 overflow-hidden hover:shadow-xl dark:hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300">
       {/* Photo */}
       <div className="relative w-full aspect-[3/4] overflow-hidden bg-gray-100 dark:bg-white/5">
         {student.photo && !imgError ? (
@@ -191,7 +191,7 @@ export function Yearbook({ activeModel, setActiveModel }: YearbookProps) {
   const currentData = YEARBOOK_DATA.find((d) => d.model === activeModel) ?? YEARBOOK_DATA[0];
 
   return (
-    <section id="yearbook-section" className="min-h-screen bg-gray-50 dark:bg-[#0b1020]">
+    <section id="yearbook-section" className="min-h-screen bg-gray-50 dark:bg-[#0d0d0f]">
       <div className="max-w-7xl mx-auto px-5 sm:px-10 lg:px-16 py-8 sm:py-12 flex flex-col lg:flex-row gap-6 lg:gap-8">
 
         {/* ── Mobile / tablet: horizontal tab strip ── */}
@@ -209,7 +209,7 @@ export function Yearbook({ activeModel, setActiveModel }: YearbookProps) {
                   className={`flex-shrink-0 rounded-xl border px-4 py-2.5 font-prompt text-sm font-medium transition-all duration-200 ${
                     activeModel === model
                       ? 'text-[#DA5F8E] bg-pink-50 border-pink-100 shadow-sm dark:bg-[#DA5F8E]/15 dark:border-[#DA5F8E]/30'
-                      : 'text-gray-600 bg-white border-gray-100 hover:text-[#05086e] dark:text-gray-300 dark:bg-[#151c3a] dark:border-white/10 dark:hover:text-white'
+                      : 'text-gray-600 bg-white border-gray-100 hover:text-[#05086e] dark:text-gray-300 dark:bg-[#18181b] dark:border-white/10 dark:hover:text-white'
                   }`}
                 >
                   <span className="block whitespace-nowrap">{model}</span>
@@ -224,7 +224,7 @@ export function Yearbook({ activeModel, setActiveModel }: YearbookProps) {
 
         {/* ── Sidebar (desktop) ── */}
         <aside className="hidden lg:block lg:w-56 flex-shrink-0">
-          <div className="sticky top-28 bg-white dark:bg-[#151c3a] rounded-2xl shadow-sm border border-gray-100 dark:border-white/10 p-5">
+          <div className="sticky top-28 bg-white dark:bg-[#18181b] rounded-2xl shadow-sm border border-gray-100 dark:border-white/10 p-5">
             <h3 className="text-[#05086e] dark:text-[#93a5ff] font-bold font-prompt text-base mb-4 pb-3 border-b border-gray-100 dark:border-white/10">
               ทำเนียบรุ่น
             </h3>

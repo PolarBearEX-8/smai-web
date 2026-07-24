@@ -29,7 +29,7 @@ export function useTheme() {
     document.documentElement.classList.toggle('dark', theme === 'dark');
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'dark' ? '#080b2e' : '#05086e');
+      ?.setAttribute('content', theme === 'dark' ? '#09090b' : '#05086e');
   }, [theme]);
 
   // Keep following the OS until the visitor picks a theme by hand

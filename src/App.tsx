@@ -197,11 +197,11 @@ export default function App() {
 
   return (
     <>
-    <div className="min-h-screen bg-white text-gray-900 dark:bg-[#0b1020] dark:text-gray-100 flex flex-col font-sans selection:bg-teal-100 selection:text-teal-900 dark:selection:bg-teal-900 dark:selection:text-teal-100">
+    <div className="min-h-screen bg-white text-gray-900 dark:bg-[#0d0d0f] dark:text-gray-100 flex flex-col font-sans selection:bg-teal-100 selection:text-teal-900 dark:selection:bg-teal-900 dark:selection:text-teal-100">
       {/* Sticky Header Group */}
       <div className="sticky top-0 z-50 w-full flex flex-col shadow-sm">
         {/* Top Blue Bar */}
-        <div className="w-full bg-[#05086e] dark:bg-[#080b2e] text-white py-1.5 sm:py-2 px-4 sm:px-8 flex items-center text-[11px] sm:text-sm z-20 font-prompt">
+        <div className="w-full bg-[#05086e] dark:bg-[#09090b] text-white py-1.5 sm:py-2 px-4 sm:px-8 flex items-center text-[11px] sm:text-sm z-20 font-prompt">
           <div className="flex items-center gap-2 font-medium text-left min-w-0">
             <Mail size={14} className="flex-shrink-0" />
             <span className="truncate">
@@ -212,7 +212,7 @@ export default function App() {
         </div>
         
         {/* Navigation */}
-        <header className="px-4 sm:px-8 lg:px-40 py-3 flex justify-between items-center bg-white dark:bg-[#111731] z-20 border-b border-gray-100 dark:border-white/10">
+        <header className="px-4 sm:px-8 lg:px-40 py-3 flex justify-between items-center bg-white dark:bg-[#141416] z-20 border-b border-gray-100 dark:border-white/10">
           <div className="flex items-center">
             <a href="#" onClick={(e) => { e.preventDefault(); handleNavClick('home-section', 'home'); }} className="flex items-center cursor-pointer">
               <img src={asset('S-MAI-logo.png')} alt="S-MAI Logo" className="h-[35px] sm:h-[45px] md:h-[65px] w-auto block dark:hidden" />
@@ -251,7 +251,7 @@ export default function App() {
               </button>
 
               {/* Dropdown Content */}
-              <div className={`absolute left-1/2 -translate-x-1/2 top-full w-48 rounded-xl bg-white dark:bg-[#161d3b] shadow-lg border border-gray-100 dark:border-white/10 py-2 transition-all duration-300 z-50 ${desktopDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+              <div className={`absolute left-1/2 -translate-x-1/2 top-full w-48 rounded-xl bg-white dark:bg-[#1b1b1e] shadow-lg border border-gray-100 dark:border-white/10 py-2 transition-all duration-300 z-50 ${desktopDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
                 <button
                   onClick={() => handleNavClick('about-section', 'about')}
                   className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 hover:text-[#05086e] dark:hover:bg-white/5 dark:hover:text-white font-prompt transition-colors cursor-pointer flex items-center gap-2"
@@ -287,7 +287,7 @@ export default function App() {
 
             <button
               onClick={() => handleNavClick('about-section', 'about')}
-              className={`bg-[#DA5F8E] text-white px-5 py-2 rounded-full hover:bg-[#DA5F8E]/90 transition-colors duration-300 shadow-sm cursor-pointer ${activeSection === 'about' ? 'ring-2 ring-pink-300 ring-offset-2 dark:ring-offset-[#111731]' : ''}`}
+              className={`bg-[#DA5F8E] text-white px-5 py-2 rounded-full hover:bg-[#DA5F8E]/90 transition-colors duration-300 shadow-sm cursor-pointer ${activeSection === 'about' ? 'ring-2 ring-pink-300 ring-offset-2 dark:ring-offset-[#141416]' : ''}`}
             >
               รายละเอียดการสมัคร
             </button>
@@ -310,7 +310,7 @@ export default function App() {
 
         {/* Mobile Drawer */}
         <div
-          className={`md:hidden absolute top-full left-0 w-full origin-top overflow-hidden bg-white dark:bg-[#111731] shadow-lg transition-[max-height,opacity,visibility] duration-300 ease-out ${
+          className={`md:hidden absolute top-full left-0 w-full origin-top overflow-hidden bg-white dark:bg-[#141416] shadow-lg transition-[max-height,opacity,visibility] duration-300 ease-out ${
             mobileMenuOpen ? 'max-h-[80vh] opacity-100 visible border-b border-gray-100 dark:border-white/10' : 'max-h-0 opacity-0 invisible'
           }`}
         >
@@ -408,7 +408,7 @@ export default function App() {
       >
         <div className={activeSection === 'yearbook' || activeSection === 'documents' ? 'hidden' : 'block'}>
         {/* Slideshow Container */}
-        <div id="home-section" className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] overflow-hidden">
+        <div id="home-section" className="relative w-full aspect-[3/2] sm:aspect-auto sm:h-[400px] md:h-[500px] overflow-hidden">
           {/* Images */}
           {SLIDES.map((slide, index) => (
             <div 
@@ -456,7 +456,7 @@ export default function App() {
         </div>
 
         {/* News Section */}
-        <section className="py-10 sm:py-12 px-5 sm:px-12 md:px-24 lg:px-40 bg-white dark:bg-[#0b1020]">
+        <section className="py-10 sm:py-12 px-5 sm:px-12 md:px-24 lg:px-40 bg-white dark:bg-[#0d0d0f]">
           <div className="max-w-6xl mx-auto">
             <Reveal variant="fade-up" duration={700}>
               <div className="text-center mb-7 sm:mb-10 space-y-2 flex flex-col items-center">
@@ -482,7 +482,7 @@ export default function App() {
         </section>
 
         {/* Activities Section */}
-        <section className="py-10 sm:py-12 px-5 sm:px-12 md:px-24 lg:px-40 bg-gray-50 dark:bg-[#0f1530]">
+        <section className="py-10 sm:py-12 px-5 sm:px-12 md:px-24 lg:px-40 bg-gray-50 dark:bg-[#111113]">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal variant="fade-up" duration={700}>
               <div className="text-center mb-7 sm:mb-10 space-y-2 flex flex-col items-center">
@@ -531,7 +531,7 @@ export default function App() {
 
 
         {/* About Section */}
-        <section id="about-section" className="py-10 sm:py-12 px-5 sm:px-12 md:px-24 lg:px-40 bg-white dark:bg-[#0b1020] border-t border-gray-100 dark:border-white/10 overflow-hidden">
+        <section id="about-section" className="py-10 sm:py-12 px-5 sm:px-12 md:px-24 lg:px-40 bg-white dark:bg-[#0d0d0f] border-t border-gray-100 dark:border-white/10 overflow-hidden">
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-10">
             <div className="w-full md:w-1/2">
               <ScrollReveal variant="fade-right" duration={800}>
@@ -564,12 +564,12 @@ export default function App() {
 
         {/* Documents Page - คลังเอกสาร */}
         <div className={activeSection === 'documents' ? 'block flex-grow flex flex-col' : 'hidden'}>
-          <section id="documents-section" className="flex-grow min-h-screen bg-gray-50 dark:bg-[#0b1020]">
+          <section id="documents-section" className="flex-grow min-h-screen bg-gray-50 dark:bg-[#0d0d0f]">
             <div className="max-w-6xl mx-auto px-5 sm:px-10 lg:px-16 py-10 sm:py-12">
 
               {/* Header + Breadcrumb */}
               <div className="mb-8">
-                <div className="flex max-w-full items-center gap-1 overflow-x-auto rounded-2xl border border-gray-200 dark:border-white/10 bg-white/90 dark:bg-[#151c3a]/90 px-3 sm:px-4 py-2 shadow-sm text-xs sm:text-sm font-prompt mb-3 sm:inline-flex sm:gap-2">
+                <div className="flex max-w-full items-center gap-1 overflow-x-auto rounded-2xl border border-gray-200 dark:border-white/10 bg-white/90 dark:bg-[#18181b]/90 px-3 sm:px-4 py-2 shadow-sm text-xs sm:text-sm font-prompt mb-3 sm:inline-flex sm:gap-2">
                   <button
                     type="button"
                     onClick={() => setOpenFolder(null)}
@@ -622,7 +622,7 @@ export default function App() {
                         key={folder.id}
                         type="button"
                         onClick={() => setOpenFolder(folder.id)}
-                        className="group flex w-full sm:w-auto flex-row sm:flex-col items-center justify-start sm:justify-center gap-3.5 sm:gap-2 rounded-2xl sm:rounded-3xl border border-gray-100 sm:border-transparent dark:border-white/10 dark:sm:border-transparent bg-white dark:bg-[#151c3a] sm:bg-transparent dark:sm:bg-transparent px-4 py-3.5 sm:px-8 sm:py-6 cursor-pointer text-left sm:text-center transition-all duration-200 hover:border-gray-300 hover:bg-gray-100/60 dark:hover:border-white/20 dark:hover:bg-white/10 hover:shadow-sm sm:hover:scale-[1.03]"
+                        className="group flex w-full sm:w-auto flex-row sm:flex-col items-center justify-start sm:justify-center gap-3.5 sm:gap-2 rounded-2xl sm:rounded-3xl border border-gray-100 sm:border-transparent dark:border-white/10 dark:sm:border-transparent bg-white dark:bg-[#18181b] sm:bg-transparent dark:sm:bg-transparent px-4 py-3.5 sm:px-8 sm:py-6 cursor-pointer text-left sm:text-center transition-all duration-200 hover:border-gray-300 hover:bg-gray-100/60 dark:hover:border-white/20 dark:hover:bg-white/10 hover:shadow-sm sm:hover:scale-[1.03]"
                         aria-label={folder.label}
                         title={folder.label}
                       >
@@ -660,7 +660,7 @@ export default function App() {
                     {FILES.map((file, i) => (
                       <div
                         key={i}
-                        className="group bg-white dark:bg-[#151c3a] border border-gray-100 dark:border-white/10 rounded-2xl px-4 sm:px-6 py-4 flex items-center gap-3 sm:gap-5 hover:shadow-md hover:border-[#05086e]/20 dark:hover:border-[#93a5ff]/30 transition-all duration-200 cursor-pointer"
+                        className="group bg-white dark:bg-[#18181b] border border-gray-100 dark:border-white/10 rounded-2xl px-4 sm:px-6 py-4 flex items-center gap-3 sm:gap-5 hover:shadow-md hover:border-[#05086e]/20 dark:hover:border-[#93a5ff]/30 transition-all duration-200 cursor-pointer"
                         onClick={() => { setPdfUrl(file.url); setPdfTitle(file.name); }}
                       >
                         {/* PDF Icon */}
@@ -753,7 +753,7 @@ export default function App() {
       </footer>
 
       {/* Bottom Blue Bar */}
-      <div className="w-full bg-[#05086e] dark:bg-[#080b2e] text-white py-3 px-4 sm:px-8 text-[11px] sm:text-sm z-30 font-prompt relative flex flex-col items-center gap-1 text-center md:flex-row md:gap-0 md:text-left">
+      <div className="w-full bg-[#05086e] dark:bg-[#09090b] text-white py-3 px-4 sm:px-8 text-[11px] sm:text-sm z-30 font-prompt relative flex flex-col items-center gap-1 text-center md:flex-row md:gap-0 md:text-left">
         <p className="font-medium md:absolute md:left-1/2 md:-translate-x-1/2 md:text-center">
           &copy; Copyright 2026 โรงเรียนเตรียมอุดมศึกษาพัฒนาการ รัชดา
         </p>
@@ -777,7 +777,7 @@ export default function App() {
           className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-0 sm:p-4"
           onClick={(e) => { if (e.target === e.currentTarget) closePdfViewer(); }}
         >
-          <div className="relative bg-white dark:bg-[#111731] rounded-none sm:rounded-2xl shadow-2xl w-full max-w-5xl h-[100dvh] sm:h-[90vh] flex flex-col overflow-hidden">
+          <div className="relative bg-white dark:bg-[#141416] rounded-none sm:rounded-2xl shadow-2xl w-full max-w-5xl h-[100dvh] sm:h-[90vh] flex flex-col overflow-hidden">
             {/* Modal Header */}
             <div className="flex items-center justify-between gap-2 px-4 sm:px-6 py-3 sm:py-4 border-b border-gray-100 dark:border-white/10 flex-shrink-0 pt-[max(0.75rem,env(safe-area-inset-top))] sm:pt-4">
               <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">

@@ -23,6 +23,7 @@ html {
 
 html.dark {
   color-scheme: dark;
+  background: #0d0d0f;
 }
 
 body {
