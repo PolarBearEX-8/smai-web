@@ -6,3 +6,60 @@
   --font-prompt: "Prompt", sans-serif;
 }
 
+/* dark: follows the .dark class on <html> (set by the theme toggle),
+   not the OS setting, so the visitor's choice always wins */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  /* Keep font sizes fixed when a phone is rotated to landscape */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Give scrollbars, form controls and the page canvas the matching theme */
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  /* Reveal animations translate elements sideways before they settle;
+     without this they widen the page on narrow screens. */
+  overflow-x: hidden;
+}
+
+/* No grey flash box when tapping buttons/links on mobile */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img,
+svg,
+iframe {
+  max-width: 100%;
+}
+
+/* Anchor targets must clear the sticky header when scrolled into view */
+#home-section,
+#about-section,
+#archive-section,
+#contact-section,
+#documents-section,
+#yearbook-section {
+  scroll-margin-top: 88px;
+}
+
+@media (min-width: 768px) {
+  #home-section,
+  #about-section,
+  #archive-section,
+  #contact-section,
+  #documents-section,
+  #yearbook-section {
+    scroll-margin-top: 130px;
+  }
+}
+
