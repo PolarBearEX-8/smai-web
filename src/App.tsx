@@ -702,7 +702,7 @@ export default function App() {
 
           {/* Social Logos on the Left */}
           <div className="order-3 md:order-1 flex flex-col items-center md:items-start gap-2.5 md:pb-6">
-            <span className="text-white font-prompt font-medium text-xs sm:text-sm tracking-wide">Official Social Media</span>
+            <span className="text-white font-prompt font-medium text-xs sm:text-sm tracking-wide">Official S-MAI Social Media</span>
             <div className="flex items-center gap-5 md:gap-4 text-white">
               <a href="https://www.facebook.com/profile.php?id=100077475367296" target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-80 active:opacity-70">
                 <img src={asset('facebook.svg')} alt="Facebook" className="w-11 h-11 md:w-12 md:h-12" />
