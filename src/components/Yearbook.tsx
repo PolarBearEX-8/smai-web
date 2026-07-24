@@ -50,13 +50,13 @@ function makeStudents(data: {
 const TEACHER = makeStudents({
   fullname:  ['ณัฐสิทธิ์ ประจิม', 'จินตนา คงอ่ำ', 'ศิริรัฐพล ไตรสังข์','สัญชัย วัชรพรรณ','นพวิชญ์ วงค์สม','ภูมิ สารักษ์'],
   nickname:  ['พี่ก๊อปปี้','พี่อ้อม','พี่แซ็ค','พี่เอ็กซ์','พี่บรอนซ์','พี่ภูมิ'],
-  instagram: ['jarnjim.is.khuncool','-','zacksophone_kme','-','bronopphawich','-'],
+  instagram: ['jarnjim.is.khuncool','-','zacksophone_kme','xsanchaix','bronopphawich','-'],
 })
 // ── SMAI-05 (2569) ──────────────────────────
 const SMAI05 = makeStudents({
   fullname:  ['ชื่อ นามสกุล', 'ชื่อ นามสกุล', 'ชื่อ นามสกุล'],
-  nickname:  ['ชื่อเล่น',     'ชื่อเล่น',     'ชื่อเล่น'    ],
-  instagram: ['username',     'username',     'username'    ],
+  nickname:  ['ชื่อเล่น','ชื่อเล่น','ชื่อเล่น'],
+  instagram: ['username','username','username'],
 });
 
 // ── SMAI-04 (2568) ──────────────────────────
@@ -70,22 +70,22 @@ const SMAI04 = makeStudents({
 // ── SMAI-03 (2567) ──────────────────────────
 const SMAI03 = makeStudents({
   fullname:  ['ชื่อ นามสกุล', 'ชื่อ นามสกุล', 'ชื่อ นามสกุล'],
-  nickname:  ['ชื่อเล่น',     'ชื่อเล่น',     'ชื่อเล่น'    ],
-  instagram: ['username',     'username',     'username'    ],
+  nickname:  ['ชื่อเล่น','ชื่อเล่น','ชื่อเล่น'],
+  instagram: ['username','username','username'],
 });
 
 // ── SMAI-02 (2566) ──────────────────────────
 const SMAI02 = makeStudents({
-  fullname:  ['ชื่อ นามสกุล', 'ชื่อ นามสกุล'],
-  nickname:  ['ชื่อเล่น',     'ชื่อเล่น'    ],
-  instagram: ['username',     'username'    ],
+  fullname:  ['ชื่อ นามสกุล', 'ชื่อ นามสกุล', 'ชื่อ นามสกุล'],
+  nickname:  ['ชื่อเล่น','ชื่อเล่น','ชื่อเล่น'],
+  instagram: ['username','username','username'],
 });
 
 // ── SMAI-01 (2565) ──────────────────────────
 const SMAI01 = makeStudents({
-  fullname:  ['ชื่อ นามสกุล', 'ชื่อ นามสกุล'],
-  nickname:  ['ชื่อเล่น',     'ชื่อเล่น'    ],
-  instagram: ['username',     'username'    ],
+  fullname:  ['ชื่อ นามสกุล', 'ชื่อ นามสกุล', 'ชื่อ นามสกุล'],
+  nickname:  ['ชื่อเล่น','ชื่อเล่น','ชื่อเล่น'],
+  instagram: ['username','username','username'],
 });
 
 // ─────────────────────────────────────────────
@@ -243,7 +243,7 @@ export function Yearbook({ activeModel, setActiveModel }: YearbookProps) {
                   >
                     <span>{model}</span>
                     <span className={`text-[11px] font-normal ${activeModel === model ? 'text-pink-300 dark:text-[#DA5F8E]/70' : 'text-gray-400 dark:text-gray-500'}`}>
-                      ปีการศึกษา {data.year}
+                      ปีการศึกษาที่เข้ามา {data.year}
                     </span>
                   </button>
                 );
