@@ -286,7 +286,7 @@ export default function App() {
           <div className="max-w-6xl mx-auto">
             <Reveal variant="fade-up" duration={700}>
               <div className="text-center mb-10 space-y-2 flex flex-col items-center">
-                <h2 className="text-3xl font-bold text-[#05086e] font-prompt">ข่าวสารล่าสุด</h2>
+                <h2 className="text-3xl font-bold text-[#05086e] font-prompt">กิจกรรมของเรา</h2>
                 <div className="w-16 h-1 bg-[#DA5F8E]"></div>
               </div>
             </Reveal>
@@ -312,7 +312,7 @@ export default function App() {
           <div className="max-w-6xl mx-auto">
             <ScrollReveal variant="fade-up" duration={700}>
               <div className="text-center mb-10 space-y-2 flex flex-col items-center">
-                <h2 className="text-3xl font-bold text-[#05086e] font-prompt">กิจกรรมของเรา</h2>
+                <h2 className="text-3xl font-bold text-[#05086e] font-prompt">ข่าวสารล่าสุด</h2>
                 <div className="w-16 h-1 bg-[#DA5F8E]"></div>
               </div>
             </ScrollReveal>
